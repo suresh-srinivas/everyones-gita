@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EveryDay G.I.T.A Challenge</title>
+    <style>
+        .participant {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .participant img {
+            margin-right: 15px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+
+        .YouTubeVideo img {
+            margin-right: 15px;
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to the EveryDay G.I.T.A Challenge!</h1>
+        <p>At the conclusion of every chapter, we will have an EveryDay G.I.T.A Challenge to provide opportunities for youth and others to share their audio or video. If you are looking to participate in the challenge, record and share with us:</p>
+        <ol>
+            <li>The whole chapter or a verse or two that you connect to</li>
+            <li>Your picture</li>
+            <li>Your name</li>
+            <li>If you are a student, your class/age, and if you are an adult, your profession</li>
+            <li>The audio recording in mp3 or m4a format. You can also share a video in mp4 if you like</li>
+        </ol>
+    </header>
+    <main>
+        {% for chapter, uploads in chapters.items() %}
+            <h2>Chapter {{ chapter }}: Participants' Recitations</h2>
+            {% for upload in uploads %}
+                <div class="participant">
+                    <img src="{{ url_for('static', filename=upload.image_filename.split('static/')[1]) }}" alt="Participant Image">
+                    <div>
+                        <strong>{{ upload.name }}</strong>
+                        <p>{{ upload.details }}</p>
+                        {% if upload.recording_filename %}
+                            <audio controls>
+                                <source src="{{ url_for('static', filename=upload.recording_filename.split('static/')[1]) }}" type="{% if upload.recording_filename.endswith('.mp3') %}audio/mpeg{% elif upload.recording_filename.endswith('.m4a') %}audio/mp4{% elif upload.recording_filename.endswith('.mp4') %}video/mp4{% endif %}">
+                                Your browser does not support the audio element.
+                            </audio>
+                        {% elif upload.youtube_url %}
+                            <div class="YouTubeVideo">
+                                <a href="{{ upload.youtube_url }}" target="_blank">
+                                    <img src="https://img.youtube.com/vi/{{ upload.youtube_url.split('=')[-1] }}/maxresdefault.jpg" alt="YouTube Video Thumbnail">
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </main>
+</body>
+</html>
+
+

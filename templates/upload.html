@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EveryDay G.I.T.A Challenge Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .upload-form {
+            width: 300px;
+            margin: 50px auto;
+        }
+        .upload-form input, .upload-form textarea, .upload-form select {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="upload-form">
+        <h2>Upload Your Participation</h2>
+        <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="chapter">Chapter:</label>
+            <select id="chapter" name="chapter" required>
+                <option value="1">Chapter 1</option>
+                <option value="2">Chapter 2</option>
+                <option value="12">Chapter 12</option>
+                <!-- Add more chapters as needed -->
+            </select>
+
+            <label for="image">Your Picture:</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
+
+            <label for="recording">Recording (MP3, M4A, or YouTube URL):</label>
+            <input type="file" id="recording" name="recording" accept="audio/mp3, audio/mp4, video/mp4">
+            <input type="url" id="youtube_url" name="youtube_url" placeholder="YouTube URL (optional)">
+
+            <label for="details">Details (class/age or profession):</label>
+            <textarea id="details" name="details" rows="4" required></textarea>
+
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+</body>
+</html>
+
+
